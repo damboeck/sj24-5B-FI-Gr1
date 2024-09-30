@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  ubuntu-container:
+    image: ubuntu:latest
+    container_name: ubuntu_container
+    environment:
+      - abc=example_value
+    volumes:
+      - C:\docker\test:/test
+    tty: true
