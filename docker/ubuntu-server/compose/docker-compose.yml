@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   ubuntu-container:
-    image: ubuntu:24.04
-    container_name: ubuntu_1
+    image: mein_ubuntu
+    container_name: "${NAME:-ubuntu_name}"
     environment:
-      - abc=example_value
+      - abc=${ENV_ABC:-example_value}
     volumes:
-      - C:\github\htl-stp-et\sj2024-25\5B-FI-Gr1\docker\ubuntu-server\compose\testdata:/test
+      - ${TEST_VOLUME}:/test
     tty: true
