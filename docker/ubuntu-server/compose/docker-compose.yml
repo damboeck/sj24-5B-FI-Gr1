@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   ubuntu-container:
-    image: ubuntu:22.04
+    image: ubuntu:24.04
     container_name: ubuntu_1
     environment:
       - abc=example_value
