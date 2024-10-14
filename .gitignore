@@ -1,4 +1,5 @@
 .idea
 *.iml
 docker/ubuntu-server/compose/testdata
+docker/webserver/log
 
