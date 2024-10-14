@@ -1,0 +1,12 @@
+services:
+  apache:
+    image: webserver
+    container_name: "${NAME:-webserver}"
+    environment:
+      - APACHE_ADMIN=${EMAIL:-max@muster.at}
+    volumes:
+      - ${LOGDIR}:/var/log/apache2
+      - ${WEBDIR}:/var/www/html
+    ports:
+      - 8087:80
+    tty: true

@@ -1,0 +1,9 @@
+services:
+  sb_webserver:
+    image: sbws
+    container_name: "${NAME:-sb_webserver}"
+#    environment:
+#      - server.port="8013"
+    ports:
+      - 8088:8081
+    tty: true
