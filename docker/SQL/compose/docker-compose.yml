@@ -1,0 +1,64 @@
+version: "3.6"
+
+networks:
+  nw-htl:
+    external: true
+
+volumes:
+  htl-mysql:
+    name: htl-mysql
+    external: true
+
+services:
+  htl-mysql-server:
+    image: mysql-server5b24
+    environment:
+      - TZ=${TIMEZONE:-Europe/Berlin}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    networks:
+      - nw-htl
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    deploy:
+      resources:
+        limits:
+          memory: "1G"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "3"
+    volumes:
+      # Speichere die Datenbank im Volume
+      - htl-mysql:/var/lib/mysql
+      # Hier die Datenbank-Dumps
+      - ${MYSQL_DUMP_PATH:-/opt/dump}:/opt/dump
+    hostname: ${MYSQL_HOST:-mysql}
+    container_name: ${MYSQL_HOST:-mysql}
+    restart: always
+
+  htl-phpmyadmin:
+    image: phpmyadmin5b24
+    networks:
+      - nw-htl
+    environment:
+      - TZ=${TIMEZONE:-Europe/Berlin}
+      - PMA_HOST=${MYSQL_HOST:-mysql}
+      - PMA_ABSOLUTE_URI=https://localhost:${PHP_PORT:-3343}
+    depends_on:
+      - htl-mysql-server
+    deploy:
+      resources:
+        limits:
+          memory: "100M"
+    ports:
+#      - "${PHP_PORT:-3380}:80"
+      - "${PHP_PORT:-3343}:443"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "2m"
+        max-file: "3"
+    hostname: ${PHP_MYADMIN_HOST:-phpmyadmin}
+    container_name: ${PHP_MYADMIN_HOST:-phpmyadmin}
+    restart: always
