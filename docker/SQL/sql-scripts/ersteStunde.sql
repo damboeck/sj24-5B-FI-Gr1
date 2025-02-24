@@ -14,3 +14,6 @@ idPerson INT,
 Nummer VARCHAR(40),
 CONSTRAINT fkPerson FOREIGN KEY (idPerson) REFERENCES Person(idPerson)
 );
+INSERT INTO `htl_2`.`Person` (`Vorname`, `Name`, `Geburt`) VALUES ('Franz', 'Klammer', '1960-02-01');
+INSERT INTO htl_2.Person (Vorname,Name) VALUES ('Marcel','Hirscher');
+
